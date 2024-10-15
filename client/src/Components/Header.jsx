@@ -1,19 +1,19 @@
 import { Button, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
-import Header_Logo from "../assets/Header_Logo.png";
 import { FaMoon } from "react-icons/fa";
 const Header = () => {
   const pathLocation = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
-      <Link to={"/"}>
-        <img
-          className="rounded-md shadow-xl border p-2"
-          src={Header_Logo}
-          width={160}
-          alt=""
-        />
+      <Link
+        to={"/"}
+        className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
+      >
+        <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+          Ketan&apos;s
+        </span>
+        Blog
       </Link>
       <form>
         <TextInput
