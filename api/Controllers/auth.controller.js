@@ -1,7 +1,8 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import { errorHandler } from "../Utils/utils.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   try {
     // Destructure the data coming from the server
     const { username, email, password } = req.body;
@@ -15,13 +16,13 @@ export const signup = async (req, res) => {
       email === "" ||
       password === ""
     ) {
-      return res.status(400).json({ error: "All fields are required" });
+      next(errorHandler(400, "All fields are required"));
     }
 
     // Check if the username already exists in the database
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ error: "Username already exists" });
+      next(errorHandler(409, "Username already exists"));
     }
 
     // Hashin the Password
@@ -36,8 +37,10 @@ export const signup = async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
-    return res.status(200).json({ message: "User created successfully" });
+    return res
+      .status(200)
+      .json({ success: false, message: "User created successfully" });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
