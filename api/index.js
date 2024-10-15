@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import UserRoutes from "./Routes/user.route.js";
 import AuthRoutes from "./Routes/auth.route.js";
 const app = express();
-const port = process.env.PORT || 8000;
+const port = 3000;
 dotenv.config();
 app.use(express.json());
 
