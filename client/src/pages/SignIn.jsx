@@ -8,6 +8,7 @@ import {
   signInFailure,
   signInSuccess,
 } from "../Store/User/UserSlice";
+import OAuth from "../Components/OAuth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -99,6 +100,7 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 mt-5">
             <span>Don&apos;t have an account? </span>

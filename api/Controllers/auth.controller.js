@@ -87,3 +87,55 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const google = async (req, res, next) => {
+  const { email, name, googlePhotoURL } = req.body;
+  try {
+    // Check if the user already exists in the database
+    const user = await User.findOne({ email });
+    if (user) {
+      const token = jwt.sign(
+        { id: user._id },
+        process.env.JWT_SECRET || "secretKetanKhot2511ddd99245"
+      );
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    } else {
+      // Generate the Random Password
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      // Hash the Password
+      const hashedPassword = await bcrypt.hash(generatedPassword, 10);
+      // Create a new user
+      const newUser = new User({
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePic: googlePhotoURL,
+      });
+      // Save the user to the database
+      await newUser.save();
+      const token = jwt.sign(
+        { id: newUser._id },
+        process.env.JWT_SECRET || "secretKetanKhot2511ddd99245"
+      );
+      const { password, ...rest } = newUser._doc;
+      res
+        .status(200)
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
