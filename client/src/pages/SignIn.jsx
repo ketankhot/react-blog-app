@@ -90,7 +90,7 @@ const SignIn = () => {
             </Button>
           </form>
           <div className="flex gap-2 mt-5">
-            <span>Don't have an account? </span>
+            <span>Don&apos;t have an account? </span>
             <Link to="/sign-up" className="text-blue-500 cursor-pointer">
               Sign Up
             </Link>
