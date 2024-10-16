@@ -69,7 +69,7 @@ const SignUp = () => {
               <Label value="Your Email" />
               <TextInput
                 type="email"
-                placeholder="Email"
+                placeholder="name@gmail.com"
                 id="email"
                 onChange={handleChange}
               />
