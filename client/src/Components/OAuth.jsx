@@ -27,7 +27,7 @@ export default function OAuth() {
         }),
       });
       const result = await res.json();
-      console.log(result);
+      console.log(resultsFromGoogle);
       if (res.ok) {
         dispatch(signInSuccess(result));
         navigate("/");

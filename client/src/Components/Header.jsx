@@ -1,9 +1,14 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { LiaSignOutAltSolid } from "react-icons/lia";
+import { LiaSignInAltSolid } from "react-icons/lia";
+
 const Header = () => {
   const pathLocation = useLocation().pathname;
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Navbar className="border-b-2">
       <Link
@@ -30,11 +35,37 @@ const Header = () => {
         <Button className="w-12 h-10 hidden sm:inline" pill color="gray">
           <FaMoon />
         </Button>
-        <Link to={"/sign-in"}>
-          <Button gradientDuoTone="purpleToPink" outline>
-            Sign In
-          </Button>
-        </Link>
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={<Avatar alt="user" img={currentUser.photoUrl} rounded />}
+          >
+            <Dropdown.Header>
+              <div className="items-center justify-center flex flex-col">
+                <span className="block text-sm">@{currentUser.username}</span>
+                <span className="truncate font-semibold text-sm block">
+                  @{currentUser.email}
+                </span>
+              </div>
+            </Dropdown.Header>
+            <Link to={"/dashboard?tab=profile"}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              Sign Out <LiaSignOutAltSolid size={18} className="ml-2" />
+            </Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to={"/sign-in"}>
+            <Button gradientDuoTone="purpleToPink" outline>
+              <div className="flex items-center gap-1">
+                Sign In <LiaSignInAltSolid size={20} />
+              </div>
+            </Button>
+          </Link>
+        )}
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
