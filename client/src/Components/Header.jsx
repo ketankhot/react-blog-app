@@ -11,6 +11,7 @@ const Header = () => {
   const pathLocation = useLocation().pathname;
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
   const { theme } = useSelector((state) => state.theme);
   return (
     <Navbar className="border-b-2">

@@ -9,7 +9,6 @@ const DashSideBar = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFormUrl = urlParams.get("tab");
-    console.log(tabFormUrl);
     if (tabFormUrl) {
       setTab(tabFormUrl);
     }
