@@ -71,7 +71,7 @@ export const signin = async (req, res, next) => {
     const token = jwt.sign(
       { id: user.id, username: user.username },
       process.env.JWT_SECRET || "secretKetanKhot2511ddd99245",
-      { expiresIn: "1h" }
+      { expiresIn: "2d" }
     );
 
     // Removw the Password field
@@ -79,7 +79,7 @@ export const signin = async (req, res, next) => {
 
     res
       .status(200)
-      .cookie("acesss_token", token, {
+      .cookie("access_token", token, {
         httpOnly: true,
       })
       .json(rest);
@@ -96,7 +96,10 @@ export const google = async (req, res, next) => {
     if (user) {
       const token = jwt.sign(
         { id: user._id },
-        process.env.JWT_SECRET || "secretKetanKhot2511ddd99245"
+        process.env.JWT_SECRET || "secretKetanKhot2511ddd99245",
+        {
+          expiresIn: "2d",
+        }
       );
       const { password, ...rest } = user._doc;
       res

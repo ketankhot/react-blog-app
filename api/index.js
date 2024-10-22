@@ -3,10 +3,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import UserRoutes from "./Routes/user.route.js";
 import AuthRoutes from "./Routes/auth.route.js";
+import CookieParser from "cookie-parser";
 const app = express();
 const port = 3000;
 dotenv.config();
 app.use(express.json());
+app.use(CookieParser());
 
 // Connections to Mongoose
 mongoose
